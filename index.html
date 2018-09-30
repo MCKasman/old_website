@@ -1,0 +1,60 @@
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Michael Kasman</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="MK_Style.css"/>
+		<link rel="stylesheet" href="about-style.css"/>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-76017223-8"></script>
+
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+
+	</head>
+	<body class="loading">
+		<div id = "barba-wrapper">
+		<div class = "barba-container">
+		<div id="wrapper">
+			<div id="bg"></div>
+			<div id="overlay"></div>
+			<div id="main">
+
+				<!-- Header -->
+					<header id= "header">
+						<section>
+						<img src = "mkLogo.png" alt = "mkLogo" width = "230px" height = "230px">
+						<h1>Michael Kasman</h1>
+						<p>Computer Engineering &nbsp;&bull;&nbsp; Software Developer</p>
+						<nav>
+							<div class= "homelist_slide swiper-slide">
+							<ul>
+								<li><a href="about.html">About</a></li>
+								<li><a href="michael-kasman-resume.pdf">Résumé</a></li>
+							</ul>
+						</div>
+						</nav>
+					</section>
+					</header>
+
+			</div>
+		</div>
+	</div>
+</div>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script>
+			window.onload = function() { document.body.className = ''; }
+			window.ontouchmove = function() { return false; }
+			window.onorientationchange = function() { document.body.scrollTop = 0; }
+		</script>
+		<script id="vertShader" type="shader"> varying vec2 vUv; varying vec3 v_position; uniform float time; uniform float blend; uniform float scrollFactor; uniform sampler2D original; uniform sampler2D target; void main() { vUv = uv; v_position = position.xyz; float roundblend = sin(3.1415926*blend);
+		float stepblend = clamp( 2.*(v_position.x *scrollFactor) +3.*blend - 1., 0.,1.); float originalR = texture2D(original,vUv).r; float targetR = texture2D(target,vUv).r; v_position.z = 0.2* mix(originalR,targetR,stepblend) + roundblend*-0.1*sin(v_position.x*1.
+		+ time/100.); v_position.x = position.x + roundblend*0.3*sin(v_position.z*-8. + v_position.y*3. + v_position.x*1. + blend); vec3 vecPos = (modelViewMatrix * vec4(v_position, 1.0)).xyz; gl_Position = projectionMatrix * vec4(vecPos, 1.0); } </script>
+	<script id="fragShader" type="shader"> varying vec3 v_position; varying vec2 vUv; uniform sampler2D original; uniform sampler2D target; uniform float blend; void main(void) { vec2 st = v_position.xy; float koef = clamp(v_position.z/60.,0.,1.); vec3 color1 = vec3(1.,1.,1.); vec3 color2
+		= vec3(1.,0.,0.); vec3 color3 = mix(color1,color2,koef); vec2 grid = abs(fract(500.*st/4. - 0.5) - 0.5) / fwidth(500.*st/4.); float color = min(grid.x, grid.y); gl_FragColor = vec4(color3,1. - color); gl_FragColor = vec4(1.,0.,0.,1.); float stepblend
+		= clamp(v_position.x + v_position.y +3.*blend - 1., 0.,1.); vec4 originalC = texture2D(original,vUv); vec4 targetC = texture2D(target,vUv); vec4 result = originalC*(1. - stepblend) + targetC*stepblend; gl_FragColor = result*(1. - color); } </script>
+	<script type="text/javascript" src="about-script.js"></script>
+	</body>
+</html>

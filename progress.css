@@ -1,0 +1,23 @@
+#skills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 0.1fr 0.35fr 0.35fr;
+  justify-items: center;
+  width: auto;
+  height: auto;
+  margin-bottom: -1px;
+  background-color: white;
+}
+  @media (max-width: 767px) {
+    #skills {
+      height: auto;
+      grid-template-rows: 0.05fr 0.05fr 0.05fr 0.35fr 0.35fr 0.35fr 0.35fr 0.35fr 0.35fr;
+      grid-template-columns: 1fr;
+    }
+  }
+  #skills #skills-skill-text {
+    color: black;
+    font-size: 24px;
+    text-align: center; }
+  #skills #skills-skill-python {
+    margin-bottom: 15px; }
